@@ -3,9 +3,26 @@
 #define ITEMTYPE_H
 using namespace std;
 
+struct vertex;
+
+struct edge { 
+  double weight;
+  vertex* v1;
+  vertex* v2;
+  
+};
+
 struct edgeNode {
-	int edgeIndex;
+	edge* e;
 	edgeNode* next;
+	edgeNode() {
+		e = NULL;
+		next = NULL;
+	}
+	edgeNode(edge* edgy) {
+		e=edgy;
+		next=NULL;
+	}
 };
 
 struct vertex {
@@ -18,26 +35,34 @@ struct vertex {
 	vertex() {
 		inTree = false;
 		numEdgesAdjacent = 0;
-		head = tail = NULL;
-	}
-	void addEdge(int x) {
-		edgeNode* e = new edgeNode();
-		e->edgeIndex = x;
-		e->next = NULL;
-		tail ->next = e;
-		numEdgesAdjacent = 0;
+		head = NULL;
+		tail = NULL;
 	};
-
-};
-
-struct edge { 
-  //int edgeIndex;
-  double weight;
-  int v1;
-  int v2;
-  bool checkEdge() {
-	if (
-  }
+	void addEdge(edge* e) {			
+		edgeNode* nEdgeNode = new edgeNode(e);
+		if (numEdgesAdjacent == 0) {
+			head= nEdgeNode;
+			tail= nEdgeNode;
+		}
+		else {
+			nEdgeNode->next = head;
+			head = nEdgeNode;
+			}
+		numEdgesAdjacent++;
+	};
+	
+	void printVertex() {
+		if (numEdgesAdjacent ==0)
+			return;
+		cout<<"TESTING ADD EDGE "<<vertexIndex<<": ";
+		edgeNode* traveler = new edgeNode();
+		traveler->next = head;
+			while (traveler->next) {
+				cout<<"[ "<<traveler->next->e->weight<<" : ("<<traveler->next->e->v1->x<<", "<<traveler->next->e->v1->y<<") ("<<traveler->next->e->v2->x<<", "<<traveler->next->e->v2->y<<") ] ";
+				traveler = traveler->next;
+			}
+		cout<<endl;
+	}
 };
 
 #endif
