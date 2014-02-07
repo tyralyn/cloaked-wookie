@@ -76,10 +76,10 @@ int main() {
   }	
 
   mySystem->printEdges();
-  //mySystem->printVertices();
+  mySystem->printVertices();
   mySystem->sortEdges();
   mySystem->printEdges();
- // mySystem->printVertices();
+  mySystem->printVertices();
 	
 }
 

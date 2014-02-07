@@ -90,6 +90,15 @@ void System::sortEdges() {
 	quicksortEdges(0, numEdges-1);
 }
 
+//void System::primTree() {
+	//reference to tree of some kind
+	//get smallest edge
+	//check all connectable nodes, find the smallest edged one with one vertex in tree and one not in tree
+	//end when ended
+//}
+
+//void System::
+
 void System::printEdges() {
 	cout<<"EDGES: "<<numEdges<<endl;
 	for (int i = 0; i<edgeCount; i++)
@@ -100,7 +109,7 @@ void System::printVertices() {
 	cout<<"VERTICES"<<endl;
 	for (int i = 1; i<vertexCount;i++) {
 		cout<<vertices[i]->x<<" "<<vertices[i]->y<<endl;
-		//vertices[i]->printVertex();
+		vertices[i]->printVertex();
 		}
 }
 
