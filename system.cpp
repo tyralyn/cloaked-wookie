@@ -5,6 +5,7 @@ System::System() {
 	numVertices = 0;
 	edgeCount = 0;
 	vertexCount = 1;
+	t = new tree();
 }
 
 System::~System() {
@@ -90,14 +91,56 @@ void System::sortEdges() {
 	quicksortEdges(0, numEdges-1);
 }
 
-//void System::primTree() {
-	//reference to tree of some kind
-	//get smallest edge
-	//check all connectable nodes, find the smallest edged one with one vertex in tree and one not in tree
-	//end when ended
-//}
+bool System::checkVertices() {
+	//bool t = true;
+	for (int i =1; i<numVertices+1; i++) {
+		if (vertices[i]->inTree==false)
+			return false;
+	}
+	return true;
+}
+
+void System::printVertexStatus() {
+	cout<<"VERTEX STATUS: ";
+	for (int i = 1; i<numVertices+1; i++) {
+		cout<<i<<": "<<vertices[i]->inTree<<"; ";
+	}
+	cout<<"\n";
+}
+
+void System::primTree() {
+	cout<<"test1 "<<checkVertices()<<"\n";
+	edgeCount = 1;
+	t->addEdge(edges[0]);
+	for (int i = 0; i < numEdges; i++) {
+		if (checkVertices())
+			return;
+		if (edges[i]->v1->inTree && edges[i]->v2->inTree || !edges[i]->v1->inTree && !edges[i]->v2->inTree) {
+			continue;
+		}
+		t->addEdge(edges[i]);
+	}
+	//while (!checkVertices)
+	
+	/*printVertexStatus();
+	cout<<"CHECKVERTICES: "<<checkVertices()<<endl;
+	t->addEdge(edges[0]);
+	printVertexStatus();
+	cout<<"CHECKVERTICES: "<<checkVertices()<<endl;
+	t->addEdge(edges[1]);
+	printVertexStatus();
+	cout<<"CHECKVERTICES: "<<checkVertices()<<endl;
+	t->addEdge(edges[2]);
+	printVertexStatus();
+	cout<<"CHECKVERTICES: "<<checkVertices()<<endl;
+	*/
+}
 
 //void System::
+
+void System::printTree() {
+	t->printTree();
+}
 
 void System::printEdges() {
 	cout<<"EDGES: "<<numEdges<<endl;
@@ -113,8 +156,10 @@ void System::printVertices() {
 		}
 }
 
-void System::addEdge(int a, int b) {
+void System::addEdge(int A, int B) {
 	//cout<<"ad ding edge "<<a<<" "<<b<<endl;
+	int a = (A<B) ? A : B;
+	int b = (A<B) ? B : A;
 	edge* newEdge = new edge();
 	newEdge->v1 = vertices[a];
 	newEdge->v2 = vertices[b];

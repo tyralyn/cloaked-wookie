@@ -63,7 +63,7 @@ int main() {
     parseVertices(line, mySystem);
   }
   
-  mySystem->printVertices();
+  //mySystem->printVertices();
   
   getline(cin, line);
   int numedges = atoi(line.c_str());
@@ -76,10 +76,15 @@ int main() {
   }	
 
   mySystem->printEdges();
-  mySystem->printVertices();
+  //mySystem->printVertices();
   mySystem->sortEdges();
   mySystem->printEdges();
-  mySystem->printVertices();
+ // mySystem->printVertices();
+ 
+ cout<<endl<<"-----------------------"<<endl<<endl;
+ 
+ mySystem->primTree();
+ mySystem->printTree();
 	
 }
 
