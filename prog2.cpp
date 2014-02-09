@@ -75,16 +75,12 @@ int main() {
 	}
   }	
 
-  mySystem->printEdges();
-  //mySystem->printVertices();
   mySystem->sortEdges();
-  mySystem->printEdges();
- // mySystem->printVertices();
  
- cout<<endl<<"-----------------------"<<endl<<endl;
+ //cout<<endl<<"-----------------------"<<endl<<endl;
  
  mySystem->primTree();
- mySystem->printTree();
+ mySystem->printResults();
 	
 }
 

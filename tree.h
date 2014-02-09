@@ -12,6 +12,7 @@ class tree {
 		~tree();
 		void setup(edge* e);
 		void printTree();
+		void printResults();
 		void addEdge(edge* e);
 		void getMinEdge(const edge* current, edge* min);
 		edge* getNextEdge(edge* e);

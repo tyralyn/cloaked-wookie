@@ -21,6 +21,7 @@ public:
 	bool checkEdge(edge* e);
 	bool checkVertices();
 	void printTree();
+	void printResults();
 	void printVertexStatus();
 private:
 	edge** edges;

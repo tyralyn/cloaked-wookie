@@ -2,6 +2,7 @@
 
 tree::tree() {
 	head = NULL;
+	tail = NULL;
 	numEdges = 0;
 }
 
@@ -18,9 +19,27 @@ void tree::setup(edge *e) {
 }
 
 void tree::addEdge(edge* e) {
+	/*edgeNode* n = new edgeNode(e);
+	edgeNode* t = head;
+	cout<<t->next<<endl;
+	while (t->next) {
+		t=t->next;
+	}
+	t->next = n;
+	e->v1->inTree = true;//!e->v1->inTree;
+	e->v2->inTree = true;//!e->v2->inTree;
+	numEdges++;*/
 	edgeNode* n = new edgeNode(e);
-	n->next = head;
-	head = n;
+	//n->next = head;
+	//head = n;
+	if (numEdges==0) {
+		head = n;
+		tail = n;
+	}
+	else {
+		tail->next = n;
+		tail = n;
+	}
 	e->v1->inTree = true;//!e->v1->inTree;
 	e->v2->inTree = true;//!e->v2->inTree;
 	numEdges++;
@@ -56,10 +75,6 @@ edge* tree::getNextEdge(edge* e) {
 	return minEdge;
 }
 
-
-
-
-
 void tree::printTree() {
 	cout<<"printing tree: "<<numEdges<<endl;
 		if (numEdges ==0)
@@ -75,6 +90,16 @@ void tree::printTree() {
 		cout<<endl;
 }
 
-//void tree::getMinOption() {
-	
-//}
+void tree::printResults() {
+	if (numEdges ==0)
+		return;
+	//cout<<"TESTING ADD EDGE "<<vertexIndex<<": ";
+	edgeNode* traveler = new edgeNode();
+	traveler->next = head;
+		while (traveler->next) {
+			cout<<traveler->next->e->v1->vertexIndex<<" "<<traveler->next->e->v2->vertexIndex<<endl;
+			traveler = traveler->next;
+		}
+	cout<<endl;
+}
+

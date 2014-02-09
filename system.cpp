@@ -109,8 +109,8 @@ void System::printVertexStatus() {
 }
 
 void System::primTree() {
-	cout<<"test1 "<<checkVertices()<<"\n";
-	edgeCount = 1;
+	//cout<<"test1 "<<checkVertices()<<"\n";
+	edgeCount = 0;
 	t->addEdge(edges[0]);
 	for (int i = 0; i < numEdges; i++) {
 		if (checkVertices())
@@ -122,9 +122,9 @@ void System::primTree() {
 	}
 	//while (!checkVertices)
 	
-	/*printVertexStatus();
+	printVertexStatus();
 	cout<<"CHECKVERTICES: "<<checkVertices()<<endl;
-	t->addEdge(edges[0]);
+	/*t->addEdge(edges[0]);
 	printVertexStatus();
 	cout<<"CHECKVERTICES: "<<checkVertices()<<endl;
 	t->addEdge(edges[1]);
@@ -140,6 +140,10 @@ void System::primTree() {
 
 void System::printTree() {
 	t->printTree();
+}
+
+void System::printResults() {
+	t->printResults();
 }
 
 void System::printEdges() {
