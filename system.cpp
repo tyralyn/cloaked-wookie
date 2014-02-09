@@ -5,7 +5,6 @@ System::System() {
 	numVertices = 0;
 	edgeCount = 0;
 	vertexCount = 1;
-	t = new tree();
 }
 
 System::~System() {
@@ -30,7 +29,8 @@ void System::setupEdges(int n) {
 		}
 	}
 	else 
-		edges = new edge*[numEdges+1];
+		edges = new edge*[numEdges];
+	t = new tree(numEdges);
 }
 
 void System::setupVertices(int n){
@@ -44,7 +44,6 @@ int System::getPartitionIndex(int leftIndex, int rightIndex) {
 }
 
 void System::swap(int index1, int index2, edge** e) {
-	//cout<<"swapping "<<index1<<" "<<index2<<endl;
 	edge* hold = e[index1];
 	e[index1]=e[index2];
 	e[index2]=hold;
@@ -52,6 +51,7 @@ void System::swap(int index1, int index2, edge** e) {
 
 int System::partition(int leftIndex, int rightIndex, int pivotIndex, edge** e){
 	double pivotValue = e[pivotIndex]->weight;
+	//cout<<pivotValue<<endl;
 	swap(pivotIndex, rightIndex, e);
 	int swappingIndex = leftIndex;
 	for (int i=leftIndex; i<rightIndex; i++) {
@@ -73,15 +73,15 @@ void System::quicksort(int leftIndex, int rightIndex, edge** e) {
 	}
 }
 
-bool System::checkEdge(edge* e) {
-}
-
 void System::sortEdges() { 
 	quicksort(0, numEdges-1, edges);
 }
 
+void System::sortResults() {
+	t->sortTree();
+}
+
 bool System::checkVertices() {
-	//bool t = true;
 	for (int i =1; i<numVertices+1; i++) {
 		if (vertices[i]->inTree==false)
 			return false;
@@ -106,15 +106,18 @@ void System::primTree() {
 		if (edges[i]->v1->inTree && edges[i]->v2->inTree || !edges[i]->v1->inTree && !edges[i]->v2->inTree) {
 			continue;
 		}
+		
 		t->addEdge(edges[i]);
 	}
 }
 
 void System::printTree() {
+	sortResults();
 	t->printTree();
 }
 
 void System::printResults() {
+	//sortResults();
 	t->printResults();
 }
 
@@ -128,7 +131,7 @@ void System::printVertices() {
 	cout<<"VERTICES"<<endl;
 	for (int i = 1; i<vertexCount;i++) {
 		cout<<vertices[i]->x<<" "<<vertices[i]->y<<endl;
-		vertices[i]->printVertex();
+		//vertices[i]->printVertex();
 		}
 }
 
@@ -139,31 +142,21 @@ void System::addEdge(int A, int B) {
 	edge* newEdge = new edge();
 	newEdge->v1 = vertices[a];
 	newEdge->v2 = vertices[b];
-	//cout<<a<<" "<<b<<" "<<numVertices<<endl;
 	double x1=vertices[a]->x;
 	double y1=vertices[a]->y;
 	double x2=vertices[b]->x;
 	double y2=vertices[b]->y;
 	newEdge->weight = (x2-x1)*(x2-x1)+(y2-y1)*(y2-y1);
 	edges[edgeCount]=newEdge;
-	vertices[a]->addEdge(newEdge);
-	vertices[b]->addEdge(newEdge);
-	//cout<<"TESTING ADD EDGE: ";
 	edgeCount++;
 }
 
 void System::addVertex(double x, double y) {
-	//cout<<"adding vertex "<<x<<" "<<y<<endl;
 	vertex* newVertex = new vertex();
-	//cout<<"here1\n";	
 	newVertex->vertexIndex = vertexCount;
-	//cout<<"here2\n";	
 	newVertex->x = x;
-	//cout<<"here3\n";
 	newVertex->y = y;
-	//cout<<"here4\n";
 	vertices[vertexCount]=newVertex;
-	//cout<<"here5\n";
 	vertexCount++;
 }
 

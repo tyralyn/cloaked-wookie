@@ -24,11 +24,11 @@ public:
 	void printResults();
 	void sortResults();
 	void printVertexStatus();
+	edge** getTree() {return t->getTree();};
 private:
 	edge** edges;
 	vertex** vertices;
 	tree* t;
-	edgeNode** t2;
 	int traveler;
 	int edgeCount;
 	int vertexCount;

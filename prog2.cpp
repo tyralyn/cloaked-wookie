@@ -77,8 +77,6 @@ int main() {
 
   mySystem->sortEdges();
  
- //cout<<endl<<"-----------------------"<<endl<<endl;
- 
  mySystem->primTree();
  mySystem->printResults();
 	
