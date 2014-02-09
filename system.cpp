@@ -43,44 +43,33 @@ int System::getPartitionIndex(int leftIndex, int rightIndex) {
 	return medianIndex;
 }
 
-void System::swapEdges(int index1, int index2) {
+void System::swap(int index1, int index2, edge** e) {
 	//cout<<"swapping "<<index1<<" "<<index2<<endl;
-	edge* hold = edges[index1];
-	edges[index1]=edges[index2];
-	edges[index2]=hold;
+	edge* hold = e[index1];
+	e[index1]=e[index2];
+	e[index2]=hold;
 }
 
-int System::partitionEdges(int leftIndex, int rightIndex, int pivotIndex){
-	//cout<<"calledpartition\n";
-	double pivotValue = edges[pivotIndex]->weight;
-	swapEdges(pivotIndex, rightIndex);
+int System::partition(int leftIndex, int rightIndex, int pivotIndex, edge** e){
+	double pivotValue = e[pivotIndex]->weight;
+	swap(pivotIndex, rightIndex, e);
 	int swappingIndex = leftIndex;
-	//cout<<"partitionLoop\n";
 	for (int i=leftIndex; i<rightIndex; i++) {
-		//cout<<"inPartitionLoop "<<i<<endl;
-		//cout<<edges[i]->weight<<endl;
-		if (edges[i]->weight <= pivotValue) {
-			swapEdges(i, swappingIndex);
+		if (e[i]->weight <= pivotValue) {
+			swap(i, swappingIndex, e);
 			swappingIndex++;
 		}
 	}
-	swapEdges(swappingIndex, rightIndex);
-	//cout<<"endpartition\n";
+	swap(swappingIndex, rightIndex, e);
 	return swappingIndex;
 }
 
-void System::quicksortEdges(int leftIndex, int rightIndex) {
-	//cout<<"calledQuicksort "<<leftIndex<<" "<<rightIndex<<" "<<numEdges<<"\n";
+void System::quicksort(int leftIndex, int rightIndex, edge** e) {
 	if (leftIndex < rightIndex) {
-		//cout<<"quicksort1\n";
 		int pivotIndex = getPartitionIndex(leftIndex, rightIndex);
-		//cout<<"quicksort2\n";
-		int newPivotIndex = partitionEdges(leftIndex, rightIndex, pivotIndex);
-		//cout<<"quicksort3\n";
-		quicksortEdges(leftIndex, newPivotIndex-1);
-		//cout<<"lefted\n";
-		quicksortEdges(newPivotIndex+1, rightIndex);
-		//cout<<"righted\n";
+		int newPivotIndex = partition(leftIndex, rightIndex, pivotIndex, e);
+		quicksort(leftIndex, newPivotIndex-1, e);
+		quicksort(newPivotIndex+1, rightIndex, e);
 	}
 }
 
@@ -88,7 +77,7 @@ bool System::checkEdge(edge* e) {
 }
 
 void System::sortEdges() { 
-	quicksortEdges(0, numEdges-1);
+	quicksort(0, numEdges-1, edges);
 }
 
 bool System::checkVertices() {
@@ -109,7 +98,6 @@ void System::printVertexStatus() {
 }
 
 void System::primTree() {
-	//cout<<"test1 "<<checkVertices()<<"\n";
 	edgeCount = 0;
 	t->addEdge(edges[0]);
 	for (int i = 0; i < numEdges; i++) {
@@ -120,23 +108,7 @@ void System::primTree() {
 		}
 		t->addEdge(edges[i]);
 	}
-	//while (!checkVertices)
-	
-	printVertexStatus();
-	cout<<"CHECKVERTICES: "<<checkVertices()<<endl;
-	/*t->addEdge(edges[0]);
-	printVertexStatus();
-	cout<<"CHECKVERTICES: "<<checkVertices()<<endl;
-	t->addEdge(edges[1]);
-	printVertexStatus();
-	cout<<"CHECKVERTICES: "<<checkVertices()<<endl;
-	t->addEdge(edges[2]);
-	printVertexStatus();
-	cout<<"CHECKVERTICES: "<<checkVertices()<<endl;
-	*/
 }
-
-//void System::
 
 void System::printTree() {
 	t->printTree();

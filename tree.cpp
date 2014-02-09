@@ -90,6 +90,8 @@ void tree::printTree() {
 		cout<<endl;
 }
 
+
+
 void tree::printResults() {
 	if (numEdges ==0)
 		return;

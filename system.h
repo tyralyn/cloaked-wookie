@@ -14,19 +14,21 @@ public:
 	void sortVertices();
 	void primTree();
 	int getPartitionIndex(int leftIndex, int rightIndex);
-	void swapEdges(int index1, int index2);
-	int partitionEdges(int leftIndex, int rightIndex, int pivotIndex);
-	void quicksortEdges(int leftIndex, int rightIndex);
+	void swap(int index1, int index2, edge** e);
+	int partition(int leftIndex, int rightIndex, int pivotIndex, edge** e);
+	void quicksort(int leftIndex, int rightIndex, edge** e);
 	void sortEdges();
 	bool checkEdge(edge* e);
 	bool checkVertices();
 	void printTree();
 	void printResults();
+	void sortResults();
 	void printVertexStatus();
 private:
 	edge** edges;
 	vertex** vertices;
 	tree* t;
+	edgeNode** t2;
 	int traveler;
 	int edgeCount;
 	int vertexCount;
