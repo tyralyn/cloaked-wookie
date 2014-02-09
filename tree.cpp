@@ -30,7 +30,6 @@ void tree::printResults() {
 	for (int i = 0; i<edgeCount; i++) {
 			cout<<edges[i]->v1->vertexIndex<<" "<<edges[i]->v2->vertexIndex<<endl;
 	}
-	cout<<endl;
 }
 
 int tree::getPartitionIndex(int leftIndex, int rightIndex) {
