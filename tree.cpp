@@ -5,7 +5,7 @@ tree::tree(int n) {
 	edgeCount = 0;
 	edges = new edge*[numEdges];
 }
-
+ 
 tree::~tree() {
 	for (int i = 0; i<numEdges-1; i++)
 		delete edges[i];
